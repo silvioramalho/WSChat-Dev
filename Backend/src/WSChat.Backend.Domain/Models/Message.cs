@@ -21,5 +21,6 @@ namespace WSChat.Backend.Domain.Models
         public IList<Room> AvailableRooms { get; set; }
         public string TargetUserId { get; set; }
         public bool? IsPrivate { get; set; }
+        public ChatUser TargetUser { get; set; }
     }
 }

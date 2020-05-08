@@ -127,6 +127,13 @@ namespace WSChat.Backend.Application.Services
             message = new MessagingHandler(_userService, _roomService)
                 .Handle(userId, message);
 
+            // Composing message with target user informations
+            if (message.Event != EventEnum.Error
+                && !String.IsNullOrWhiteSpace(message.TargetUserId))
+            {
+                message.TargetUser = GetUserById(message.TargetUserId);
+            }
+
             result.Add(message.MessageToPayload(userId));
 
             return result;

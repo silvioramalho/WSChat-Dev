@@ -28,9 +28,9 @@ git clone git@github.com:silvioramalho/WSChat-Dev.git
 
 > dotnet test tests/WSCHat.Backend.Tests/WSCHat.Backend.Tests.csproj
 
-### Web
+### Web Client
 
-    Open in Google Chrome the file: `tests/web/index.html`
+    Open in Google Chrome the file: `tests/webClient/index.html`
 
 
 ## Frontend
