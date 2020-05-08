@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 import { MessageInterface } from './helpers/interfaces/message.interface';
 import { EventEnum } from './helpers/enums/event.enum';
 import { MessageService } from '../helpers/services/message.service';
+import { DataStorageService } from '../helpers/services/data-storage.service';
 
 @Component({
   selector: 'app-chat',
@@ -20,7 +21,8 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   constructor(
     private webSocket: WebsocketService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private dataService: DataStorageService
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +55,9 @@ export class ChatComponent implements OnInit, OnDestroy {
         break;
       case EventEnum.UpdateRoomList:
         this.messageService.presentToast('info', msg.messageText);
+        if (msg.availableRooms) {
+          this.dataService.setRooms(msg.availableRooms);
+        }
         break;
       default:
         break;

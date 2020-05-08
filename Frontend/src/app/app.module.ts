@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { pt_BR } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
@@ -28,6 +29,7 @@ registerLocaleData(pt);
     NzLayoutModule,
     NzMenuModule,
     NzMessageModule,
+    NzModalModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule

@@ -1,14 +1,42 @@
-<div class="container">
-  <div class="box">
-    <div nz-row>
-      <div nz-col nzSpan="24" class="title">
-        <h2>Select a room:</h2>
+<nz-layout>
+  <nz-header>
+    <div class="chat-header">
+      <div nz-row nzJustify="left">
+        <div nz-col nzSpan="8">
+          <div class="logo">
+            <img src="assets/img/logo.png" alt="logo" />
+            <span>WS Chat</span>
+          </div>
+        </div>
+        <div nz-col nzSpan="8" style="text-align: center;">
+          <h2 style="color: #fff">{{ user.nickname }}</h2>
+        </div>
+        <div
+          nz-col
+          nzSpan="8"
+          style="text-align: right; padding-right: 10px;"
+        >
+          <button nz-button nzType="primary" nzDanger (click)="onExit()">
+            <i nz-icon nzType="logout"></i>
+            Exit
+          </button>
+        </div>
       </div>
     </div>
-    <div nz-row>
-      <div nz-col nzSpan="4" *ngFor="let room of rooms">
+
+  </nz-header>
+  <nz-content>
+    <h3 style="margin-top: 20px; text-align: center;">Welcome to our chat. Select a room to chat!</h3>
+    <div class="inner-content">
+      <div *ngFor="let room of rooms" style="">
         <app-room-card [room]="room" (click)="enterRoom(room.id)"></app-room-card>
       </div>
+      <div>
+      <nz-card class="card-new-room" (click)="showModalAddRoom()">
+        <p class="card-new-room-icon"> <i nz-icon nzType="appstore-add" nzTheme="outline"></i></p>
+        <p class="card-new-room-text" >Add New Room</p>
+      </nz-card>
+      </div>
     </div>
-  </div>
-</div>
+  </nz-content>
+</nz-layout>

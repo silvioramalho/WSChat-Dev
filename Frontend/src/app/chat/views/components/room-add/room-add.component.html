@@ -1,0 +1,24 @@
+<h3>Please, provide the name of new room:</h3>
+<form
+  nz-form
+  #registerForm
+  [formGroup]="validateForm"
+  class="user-form"
+  (ngSubmit)="submitForm()"
+>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please insert a new room name!">
+      <nz-input-group nzPrefixIcon="appstore">
+        <input
+          type="text"
+          nz-input
+          formControlName="name"
+          placeholder="New Room Name"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <button nz-button class="user-form-button" [nzType]="'primary'">
+    Add
+  </button>
+</form>

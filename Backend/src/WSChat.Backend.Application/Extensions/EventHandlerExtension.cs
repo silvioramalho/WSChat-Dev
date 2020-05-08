@@ -21,9 +21,9 @@ namespace WSChat.Backend.Application.Extensions
             {
                 case EventEnum.UpdateUserList:
                     if (message.Event == EventEnum.WelcomeMessage)
-                        objMessage.MessageText = $"The user {objMessage.User?.Nickname} entered in room.";
+                        objMessage.MessageText = $"{objMessage.User?.Nickname} entered in room.";
                     else
-                        objMessage.MessageText = $"The user {objMessage.User?.Nickname} left the room.";
+                        objMessage.MessageText = $"{objMessage.User?.Nickname} left the room.";
                     break;
                 case EventEnum.UpdateRoomList:
                     objMessage.MessageText = $"New room called #{objMessage.Room?.Name} is available.";
@@ -32,7 +32,7 @@ namespace WSChat.Backend.Application.Extensions
                     objMessage.MessageText = $"Welcome {objMessage.User?.Nickname} to this room.";
                     break;
                 case EventEnum.GoodbyeMessage:
-                    objMessage.MessageText = $"The user {objMessage.User?.Nickname} left the room.";
+                    objMessage.MessageText = $"{objMessage.User?.Nickname} left the room.";
                     break;
                 default:
                     break;

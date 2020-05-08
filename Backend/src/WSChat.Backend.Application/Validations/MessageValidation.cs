@@ -70,6 +70,14 @@ namespace WSChat.Backend.Application.Validations
                     RuleFor(expression: u => u.TargetUserId)
                         .NotEmpty().WithMessage("You need to select a user to send message in private.");
                 });
+
+                When(predicate: u => !String.IsNullOrWhiteSpace(u.TargetUserId), () =>
+                {
+                    RuleFor(expression: u => u.TargetUserId)
+                        .NotEqual(u => u.User.Id).WithMessage("You can't send message for yourself.");
+                });
+
+                
             });
             #endregion
 

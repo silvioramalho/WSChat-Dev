@@ -24,6 +24,7 @@ export class PainelComponent implements OnInit, OnDestroy {
   validateForm: FormGroup;
   destroyed$ = new Subject();
   users: UserInterface[] = [];
+  user: UserInterface;
 
   constructor(
     private fb: FormBuilder,
@@ -35,11 +36,13 @@ export class PainelComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.users = this.dataService.getUsers();
+    this.user = this.dataService.getUser();
+    this.users = this.getUsers(this.dataService.getUsers());
 
     this.validateForm = this.fb.group({
       message: [null, [Validators.required, Validators.maxLength(200)]],
       isPrivate: [null],
+      targetUserId: [''],
     });
 
     this.webSocket.connection$.pipe(takeUntil(this.destroyed$)).subscribe(
@@ -73,7 +76,11 @@ export class PainelComponent implements OnInit, OnDestroy {
 
     if (this.validateForm.valid) {
       console.log('message', this.validateForm.value);
-      this.sendMessage(this.validateForm.value.message);
+      this.sendMessage(
+        this.validateForm.value.message,
+        this.validateForm.value.targetUserId,
+        this.validateForm.value.isPrivate
+      );
     }
   }
 
@@ -85,6 +92,13 @@ export class PainelComponent implements OnInit, OnDestroy {
     if (msg && msg.event === EventEnum.Messaging && msg.user !== undefined) {
       this.messages.push(msg);
       this.resetForm();
+    } else if (
+      msg &&
+      msg.event === EventEnum.UpdateUserList &&
+      msg.room !== undefined &&
+      msg.room.users !== undefined
+    ) {
+      this.users = this.getUsers(msg.room.users);
     }
   }
 
@@ -94,6 +108,41 @@ export class PainelComponent implements OnInit, OnDestroy {
       messageText: message,
       targetUserId,
       isPrivate,
+    });
+  }
+
+  getUsers(users: UserInterface[]) {
+    return users.filter((u) => u.id !== this.user.id);
+  }
+
+  selectUser(user: UserInterface) {
+    console.log('select User', user);
+    this.validateForm.get('targetUserId').patchValue(user.id);
+  }
+
+  onPressEnter($event: KeyboardEvent) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    this.submitForm();
+  }
+
+  sendExit() {
+    this.webSocket.send({
+      event: EventEnum.ExitRoom,
+    });
+  }
+
+  clearDataSotage() {
+    this.dataService.removeRoomName();
+    this.user.idActiveRoom = null;
+    this.dataService.setUser(this.user);
+  }
+
+  onExit() {
+    this.clearDataSotage();
+    this.sendExit();
+    this.router.navigate(['chat', 'rooms'], {
+      replaceUrl: true,
     });
   }
 

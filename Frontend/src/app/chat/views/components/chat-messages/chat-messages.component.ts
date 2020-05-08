@@ -23,4 +23,14 @@ export class ChatMessagesComponent implements OnInit, AfterViewChecked {
     const container = document.getElementById('messageList');
     container.scrollTop = container.scrollHeight;
   }
+
+  getTalkers(message: MessageInterface)
+  {
+    let result = `${message.user.nickname}`;
+    if (message.targetUser) {
+      result += ` > ${message.targetUser.nickname}`;
+    }
+
+    return result;
+  }
 }

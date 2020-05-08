@@ -9,6 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { RoomCardComponent } from './views/components/room-card/room-card.component';
 import { UserListComponent } from './views/components/user-list/user-list.component';
 import { ChatMessagesComponent } from './views/components/chat-messages/chat-messages.component';
+import { RoomAddComponent } from './views/components/room-add/room-add.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +20,9 @@ import { ChatMessagesComponent } from './views/components/chat-messages/chat-mes
     RoomCardComponent,
     UserListComponent,
     ChatMessagesComponent,
+    RoomAddComponent,
   ],
-  entryComponents: [RoomCardComponent, ChatMessagesComponent],
+  entryComponents: [RoomCardComponent, ChatMessagesComponent, RoomAddComponent],
   imports: [CommonModule, SharedModule, ChatRoutingModule],
 })
 export class ChatModule {}

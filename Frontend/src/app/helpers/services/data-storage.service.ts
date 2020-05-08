@@ -65,6 +65,28 @@ export class DataStorageService {
     return localStorage.getItem(this.roomName);
   }
 
+  // REMOVE
+
+  removeIdConnection(){
+    localStorage.removeItem(this.idConnection);
+  }
+
+  removeRooms(){
+    localStorage.removeItem(this.rooms);
+  }
+
+  removeUser(){
+    localStorage.removeItem(this.user);
+  }
+
+  removeUsers(){
+    localStorage.removeItem(this.users);
+  }
+
+  removeRoomName(){
+    localStorage.removeItem(this.roomName);
+  }
+
   removeAll() {
     this.list4delete.forEach(element => {
       localStorage.removeItem(element);

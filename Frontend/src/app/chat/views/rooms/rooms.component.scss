@@ -2,17 +2,63 @@ body {
   margin: 0px;
 }
 
-.container {
-    width: 100vw;
-    height: 100vh;
-    background: #6C7A89;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center
+.logo {
+  float: left;
+
+  img {
+    margin-top: 10px;
+    height: 44px;
+    position: absolute;
+  }
+
+  span {
+    font-size: 16px;
+    color: #fff;
+    margin-left: 50px;
+  }
 }
-.box {
-    width: 800px;
-    height: auto;
-    min-width: 600px;
+
+nz-content {
+  padding: 0 50px;
+
+}
+
+nz-layout {
+  background-color: #fff;
+}
+
+.inner-content {
+  display: flex;
+  flex-wrap: wrap;
+  background: transparent;
+  padding: 24px;
+  min-height: 280px;
+  width: 100vw;
+  height: 0;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.card-new-room {
+  width: 200px;
+  height: 138px;
+  position: relative;
+  float: left;
+  margin-top: 15px;
+  // margin-left: 40px;
+  flex-basis: 100%;
+}
+
+.card-new-room-icon {
+  font-size: 50px;
+  position: absolute;
+  margin-left: 50px;
+  margin-top: -10px;
+}
+
+.card-new-room-text {
+  margin-top: 70px;
+  text-align: center;
+  font-weight: 600;
 }

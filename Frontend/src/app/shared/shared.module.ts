@@ -12,6 +12,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { BaseFormComponent } from './base-form.component';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { BaseFormComponent } from './base-form.component';
     NzMessageModule,
     NzCheckboxModule,
     NzListModule,
-    NzSelectModule
+    NzSelectModule,
+    NzModalModule
   ],
   exports: [
     FormsModule,
@@ -45,7 +47,8 @@ import { BaseFormComponent } from './base-form.component';
     NzMessageModule,
     NzCheckboxModule,
     NzListModule,
-    NzSelectModule
+    NzSelectModule,
+    NzModalModule
   ]
 })
 export class SharedModule { }

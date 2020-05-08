@@ -9,6 +9,8 @@ import { MessageInterface } from '../../helpers/interfaces/message.interface';
 import { RoomService } from '../../helpers/services/room.service';
 import { Router } from '@angular/router';
 import { UserInterface } from '../../helpers/interfaces/user.interface';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { RoomAddComponent } from '../components/room-add/room-add.component';
 
 @Component({
   selector: 'app-rooms',
@@ -24,13 +26,13 @@ export class RoomsComponent implements OnInit, OnDestroy {
     private dataService: DataStorageService,
     private webSocket: WebsocketService,
     private roomService: RoomService,
-    private router: Router
+    private router: Router,
+    private modalService: NzModalService
   ) {}
 
   ngOnInit(): void {
     this.rooms = this.dataService.getRooms();
     this.user = this.dataService.getUser();
-    console.log(this.rooms);
 
     this.webSocket.connection$.pipe(takeUntil(this.destroyed$)).subscribe(
       (msg) => {
@@ -55,6 +57,8 @@ export class RoomsComponent implements OnInit, OnDestroy {
     if (msg && msg.event === EventEnum.WelcomeMessage) {
       this.roomService.handlePayload(msg);
       this.router.navigate(['chat', 'painel']);
+    } else if (msg && msg.event === EventEnum.UpdateRoomList && msg.availableRooms) {
+      this.rooms = msg.availableRooms;
     }
   }
 
@@ -67,7 +71,19 @@ export class RoomsComponent implements OnInit, OnDestroy {
     }
   }
 
+  onExit() {
+    window.location.reload();
+  }
+
   ngOnDestroy() {
     this.destroyed$.next();
+  }
+
+  showModalAddRoom(): void {
+    this.modalService.create({
+      nzTitle: 'Add new room',
+      nzContent: RoomAddComponent,
+      nzFooter: null
+    });
   }
 }

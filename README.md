@@ -22,6 +22,8 @@ git clone git@github.com:silvioramalho/WSChat-Dev.git
 
 > dotnet run --project src/WSChat.Backend.API/WSChat.Backend.API.csproj
 
+`Note: Websocket server will run on => wss:localhost:5001/ws`
+
 ## Tests
 
 ### Units
@@ -35,9 +37,23 @@ git clone git@github.com:silvioramalho/WSChat-Dev.git
 
 ## Frontend
 
-`Note: Not fineshed yet`
+Simple websocket client for chat.
 
-Click here for [more info](Frontend/README.md)
+### Access directory
+
+> cd WSChat-Dev/Frontend
+
+### Restore packages
+
+> npm install
+
+### Development server
+
+> ng serve
+
+`Note: Frontend will run on => http://localhost:4200/chat/register`
+
+### [See more info about Frontend on this link](Frontend/README.md)
 
 
 

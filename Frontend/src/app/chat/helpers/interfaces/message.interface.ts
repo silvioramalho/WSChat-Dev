@@ -12,6 +12,7 @@ export interface MessageInterface {
   targetUserId?: string;
   isPrivate?: boolean;
   availableRooms?: RoomInterface[];
+  targetUser?: UserInterface;
 }
 
 
