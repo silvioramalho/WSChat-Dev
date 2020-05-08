@@ -1,0 +1,11 @@
+<nz-card style="width: 150px; margin-top: 16px;" [nzActions]="[countUsers, enterRoom]">
+  <nz-card-meta [nzTitle]="room.name" style="text-align: center;"></nz-card-meta>
+</nz-card>
+<ng-template #countUsers>
+  <i nz-icon nzType="team"></i>
+  {{ getCountUsers() }}
+</ng-template>
+<ng-template #enterRoom>
+  <i nz-icon nzType="login"></i>
+  Enter
+</ng-template>

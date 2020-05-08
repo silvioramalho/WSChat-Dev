@@ -1,0 +1,18 @@
+body {
+  margin: 0px;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    background: #6C7A89;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center
+}
+.box {
+    width: 800px;
+    height: auto;
+    min-width: 600px;
+}

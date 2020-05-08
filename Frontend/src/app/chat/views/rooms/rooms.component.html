@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="box">
+    <div nz-row>
+      <div nz-col nzSpan="24" class="title">
+        <h2>Select a room:</h2>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="4" *ngFor="let room of rooms">
+        <app-room-card [room]="room" (click)="enterRoom(room.id)"></app-room-card>
+      </div>
+    </div>
+  </div>
+</div>

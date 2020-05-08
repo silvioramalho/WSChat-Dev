@@ -1,0 +1,97 @@
+<nz-layout class="chat-layout">
+  <nz-sider
+      class="menu-sidebar"
+      nzCollapsible="false"
+      nzWidth="256px"
+      nzBreakpoint="md"
+      [(nzCollapsed)]="isCollapsed"
+      [nzTrigger]="null"
+    >
+      <div class="sidebar-logo">
+        <a href="https://ng.ant.design/" target="_blank">
+          <img src="assets/img/logo.png" alt="logo" />
+          <h1>WS Chat</h1>
+        </a>
+      </div>
+
+      <ul nz-menu nzTheme="dark" nzMode="inline">
+        <li
+          class="menu-title"
+        >
+          <i nz-icon nzType="team"></i>
+          <span>Chat Users</span>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="user"></i>
+          <span>nav 1</span>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="user"></i>
+          <span>nav 2</span>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="user"></i>
+          <span>nav 3</span>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="user"></i>
+          <span>nav 4</span>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="user"></i>
+          <span>nav 5</span>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="user"></i>
+          <span>nav 6</span>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="user"></i>
+          <span>nav 7</span>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="shop"></i>
+          <span>nav 8</span>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      <nz-header>
+        <div class="chat-header">
+          <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i
+              class="trigger"
+              nz-icon
+              [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+          </span>
+        </div>
+      </nz-header>
+
+
+        <nz-content>
+            <app-chat-messages [messages]="messages"></app-chat-messages>
+        </nz-content>
+
+        <nz-footer>
+
+          <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+            <nz-form-item>
+              <nz-form-label [nzSm]="24" nzJustify="start" nzFor="message" ali>Message</nz-form-label>
+              <nz-form-control [nzSm]="24" >
+                  <input placeholder="input your message here" formControlName="message" nz-input />
+              </nz-form-control>
+              <button type="button" nz-button nzType="primary" (click)="submitForm()">Submit</button>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control [nzSm]="16" >
+                <label nz-checkbox formControlName="isPrivate">
+                  <span>Is Private?</span>
+                </label>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+
+        </nz-footer>
+    </nz-layout>
+</nz-layout>
