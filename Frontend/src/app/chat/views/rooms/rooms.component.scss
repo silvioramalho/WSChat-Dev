@@ -2,23 +2,6 @@ body {
   margin: 0px;
 }
 
-.logo {
-  float: left;
-  min-width: 120px;
-
-  img {
-    margin-top: 10px;
-    height: 44px;
-    position: absolute;
-  }
-
-  span {
-    font-size: 16px;
-    color: #fff;
-    margin-left: 50px;
-  }
-}
-
 nz-content {
   padding: 0 50px;
   margin-top: 64px;
@@ -40,7 +23,6 @@ nz-layout {
   background: transparent;
   padding: 24px;
   min-height: 280px;
-  width: 100vw;
   height: 0;
   display: flex;
   flex-direction: row;
