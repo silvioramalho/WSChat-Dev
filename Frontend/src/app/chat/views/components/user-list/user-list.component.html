@@ -1,1 +1,47 @@
-<p>user-list works!</p>
+<div class="left-sidebar">
+  <div class="sidebar-collapse">
+    <span (click)="collapse()">
+      <i
+        class="trigger"
+        nz-icon
+        [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+      ></i>
+    </span>
+    <h1
+      [ngStyle]="
+        isCollapsed ? { display: 'none' } : { display: 'inline-block' }
+      "
+    >
+      Chat Users
+    </h1>
+  </div>
+  <ul nz-menu [nzSelectable]="false" nzTheme="dark" nzMode="inline">
+    <li *ngIf="users.length === 0" nz-menu-item>
+      <i nz-icon nzType="warning"></i>
+      <span
+        [ngStyle]="
+          isCollapsed ? { display: 'none' } : { display: 'inline-block' }
+        "
+        >You are alone for now!!!</span
+      >
+    </li>
+    <li *ngFor="let user of users" nz-menu-item>
+      <i
+        nz-icon
+        nzType="user"
+        [ngStyle]="
+          isCollapsed
+            ? { 'padding-left': '10px', transition: 'all 0.15s' }
+            : { 'padding-left': '0px', transition: 'all 0.15s' }
+        "
+      ></i>
+      <span
+        [ngStyle]="
+          isCollapsed ? { display: 'none' } : { display: 'inline-block' }
+        "
+        (click)="selectUser(user)"
+        >{{ user.nickname }}</span
+      >
+    </li>
+  </ul>
+</div>

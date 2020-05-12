@@ -115,9 +115,11 @@ export class PainelComponent implements OnInit, OnDestroy {
     return users.filter((u) => u.id !== this.user.id);
   }
 
-  selectUser(user: UserInterface) {
-    console.log('select User', user);
-    this.validateForm.get('targetUserId').patchValue(user.id);
+  onSelectUser(event) {
+    this.validateForm.get('targetUserId').patchValue(event.user.id);
+  }
+  onCollapseMenu(event) {
+    this.isCollapsed = event;
   }
 
   onPressEnter($event: KeyboardEvent) {
@@ -132,14 +134,14 @@ export class PainelComponent implements OnInit, OnDestroy {
     });
   }
 
-  clearDataSotage() {
+  clearDataStorage() {
     this.dataService.removeRoomName();
     this.user.idActiveRoom = null;
     this.dataService.setUser(this.user);
   }
 
   onExit() {
-    this.clearDataSotage();
+    this.clearDataStorage();
     this.sendExit();
     this.router.navigate(['chat', 'rooms'], {
       replaceUrl: true,
