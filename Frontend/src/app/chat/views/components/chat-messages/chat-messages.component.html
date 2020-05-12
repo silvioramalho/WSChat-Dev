@@ -8,7 +8,7 @@
           [nzAvatar]="item.isPrivate ? '../../../../../assets/img/lock-closed.png' : '../../../../../assets/img/lock-opened.png'"
         >
           <nz-list-item-meta-title>
-            {{ item.sendDate | date : "dd/MM/yyyy HH:mm" }} : {{ item.messageText }}
+            {{ item.sendDate | date : "dd/MM/yyyy HH:mm:ss" }} : {{ item.messageText }}
           </nz-list-item-meta-title>
         </nz-list-item-meta>
       </nz-list-item>

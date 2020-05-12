@@ -17,74 +17,17 @@ nz-sider {
   height: 80%;
   left: 0;
   margin-top: 64px;
-  position: fixed;
-}
-
-.menu-sidebar {
   position: relative;
-  z-index: 10;
-  //min-height: 80vh;
-  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
-
-  .anticon-menu-unfold {
-    padding-left: 10px;
-    transition: all 0.15s;
-
-      .sidebar-collapse h1 {
-      display: none;
-    }
-  }
-
-  .anticon-menu-fold {
-    transition: all 0.15s;
-  }
 }
 
-.trigger:hover {
-  color: #1890ff;
-}
 
-.sidebar-collapse {
-  position: relative;
-  height: 64px;
-  padding-left: 24px;
-  line-height: 64px;
-  background: #001529;
-  transition: all 0.3s;
-  color: #fff;
-}
-
-.sidebar-collapse h1 {
-  display: inline-block;
-  margin: 0 0 0 20px;
-  color: #fff;
-  font-weight: 600;
-  font-size: 16px;
-  font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
-  vertical-align: middle;
-}
-
-.logo {
-  float: left;
-
-  img {
-    margin-top: 10px;
-    height: 44px;
-    position: absolute;
-  }
-
-  span {
-    font-size: 16px;
-    color: #fff;
-    margin-left: 50px;
-  }
-}
 
 nz-content {
   margin: 0px;
   margin-top: 64px;
   height: 100%;
 }
+
 
 nz-header {
   padding: 0 10px;
@@ -100,18 +43,9 @@ nz-footer {
   line-height: 1.5;
   min-height: 10vh;
   padding: 10px;
-  margin-top: 64px;
   width: 100%;
   position: fixed;
   bottom: 0;
   z-index: 1000;
   height: 100px;
-
-  .user-select {
-    width: 70%;
-  }
-
-  .button-send {
-    width: 200px;
-  }
 }

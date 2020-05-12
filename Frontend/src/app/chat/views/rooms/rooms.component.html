@@ -1,34 +1,14 @@
 <nz-layout>
   <nz-header>
-    <div class="chat-header">
-      <div nz-row nzJustify="left">
-        <div nz-col nzSpan="8">
-          <div class="logo">
-            <img src="assets/img/logo.png" alt="logo" />
-            <span>WS Chat</span>
-          </div>
-        </div>
-        <div nz-col nzSpan="8" style="text-align: center;">
-          <h2 style="color: #fff">{{ user.nickname }}</h2>
-        </div>
-        <div
-          nz-col
-          nzSpan="8"
-          style="text-align: right; padding-right: 10px;"
-        >
-          <button nz-button nzType="primary" nzDanger (click)="onExit()">
-            <i nz-icon nzType="logout"></i>
-            Exit
-          </button>
-        </div>
-      </div>
-    </div>
-
+    <app-chat-header
+      [user]="user"
+      (exitClick)="onExit()"
+    ></app-chat-header>
   </nz-header>
   <nz-content>
-    <h3 style="margin-top: 20px; text-align: center;">Welcome to our chat. Select a room to chat!</h3>
+    <h3>Welcome to our chat. Select a room to chat!</h3>
     <div class="inner-content">
-      <div *ngFor="let room of rooms" style="">
+      <div *ngFor="let room of rooms">
         <app-room-card [room]="room" (click)="enterRoom(room.id)"></app-room-card>
       </div>
       <div>
