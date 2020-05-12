@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ChatService } from '../../helpers/services/chat.service';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EventEnum } from '../../helpers/enums/event.enum';
 import { Router } from '@angular/router';
@@ -20,14 +20,16 @@ export class PainelComponent implements OnInit, OnDestroy {
   messages: MessageInterface[] = [];
   isCollapsed = false;
   radioValue = '';
-
-  validateForm: FormGroup;
-  destroyed$ = new Subject();
   users: UserInterface[] = [];
   user: UserInterface;
 
+  destroyed$ = new Subject();
+  subjectReset: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  reset$: Observable<boolean> = this.subjectReset.asObservable();
+  subjectTargetUser: BehaviorSubject<UserInterface> = new BehaviorSubject<UserInterface>(null);
+  targetUser$: Observable<UserInterface> = this.subjectTargetUser.asObservable();
+
   constructor(
-    private fb: FormBuilder,
     private webSocket: WebsocketService,
     private dataService: DataStorageService,
     private chatService: ChatService,
@@ -39,12 +41,6 @@ export class PainelComponent implements OnInit, OnDestroy {
     this.user = this.dataService.getUser();
     this.users = this.getUsers(this.dataService.getUsers());
 
-    this.validateForm = this.fb.group({
-      message: [null, [Validators.required, Validators.maxLength(200)]],
-      isPrivate: [null],
-      targetUserId: [''],
-    });
-
     this.webSocket.connection$.pipe(takeUntil(this.destroyed$)).subscribe(
       (msg) => {
         console.log('Message received:', msg);
@@ -53,45 +49,16 @@ export class PainelComponent implements OnInit, OnDestroy {
         }
       },
       (error) => {
-        return console.log('Some error on connection register', error);
+        return error;
       },
       () => console.log('complete register')
     );
   }
 
-  verifyForm(formGroup: FormGroup | FormArray) {
-    Object.keys(formGroup.controls).forEach((field) => {
-      const control = formGroup.get(field);
-      control.markAsDirty();
-      control.markAsTouched();
-      control.updateValueAndValidity();
-      if (control instanceof FormGroup || control instanceof FormArray) {
-        this.verifyForm(control);
-      }
-    });
-  }
-
-  submitForm(): void {
-    this.verifyForm(this.validateForm);
-
-    if (this.validateForm.valid) {
-      console.log('message', this.validateForm.value);
-      this.sendMessage(
-        this.validateForm.value.message,
-        this.validateForm.value.targetUserId,
-        this.validateForm.value.isPrivate
-      );
-    }
-  }
-
-  resetForm(): void {
-    this.validateForm.reset();
-  }
-
   handlePayload(msg: MessageInterface) {
     if (msg && msg.event === EventEnum.Messaging && msg.user !== undefined) {
       this.messages.push(msg);
-      this.resetForm();
+      this.subjectReset.next(true);
     } else if (
       msg &&
       msg.event === EventEnum.UpdateUserList &&
@@ -102,13 +69,8 @@ export class PainelComponent implements OnInit, OnDestroy {
     }
   }
 
-  sendMessage(message: string, targetUserId?: string, isPrivate?: boolean) {
-    this.webSocket.send({
-      event: EventEnum.Messaging,
-      messageText: message,
-      targetUserId,
-      isPrivate,
-    });
+  onSendMessage(message: MessageInterface) {
+    this.webSocket.send(message);
   }
 
   getUsers(users: UserInterface[]) {
@@ -116,16 +78,11 @@ export class PainelComponent implements OnInit, OnDestroy {
   }
 
   onSelectUser(event) {
-    this.validateForm.get('targetUserId').patchValue(event.user.id);
-  }
-  onCollapseMenu(event) {
-    this.isCollapsed = event;
+    this.subjectTargetUser.next(event.user);
   }
 
-  onPressEnter($event: KeyboardEvent) {
-    $event.preventDefault();
-    $event.stopPropagation();
-    this.submitForm();
+  onCollapseMenu(event) {
+    this.isCollapsed = event;
   }
 
   sendExit() {
