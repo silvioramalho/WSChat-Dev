@@ -1,5 +1,5 @@
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
-  <nz-form-item style="margin-bottom: 10px;">
+  <nz-form-item class="input-message">
     <nz-form-control
       [nzSm]="24"
       [nzValidateStatus]="validateForm.controls['message']"
@@ -26,7 +26,7 @@
           <label
             nz-checkbox
             formControlName="isPrivate"
-            style="vertical-align: -webkit-baseline-middle; width: 30%;"
+            class="checkbox-is-private"
           >
             <span>Is Private?</span>
           </label>

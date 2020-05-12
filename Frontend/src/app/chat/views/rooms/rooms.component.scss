@@ -5,6 +5,11 @@ body {
 nz-content {
   padding: 0 50px;
   margin-top: 64px;
+
+  h3 {
+    margin-top: 20px;
+    text-align: center;
+  }
 }
 
 nz-header {
@@ -26,7 +31,6 @@ nz-layout {
   height: 0;
   display: flex;
   flex-direction: row;
-
 }
 
 .card-new-room {

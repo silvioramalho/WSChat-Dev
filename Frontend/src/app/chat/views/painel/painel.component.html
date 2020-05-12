@@ -1,12 +1,11 @@
 <nz-layout class="chat-layout">
+
   <nz-header>
-    <app-chat-header
-      [user]="user"
-      (exitClick)="onExit()"
-    ></app-chat-header>
+    <app-chat-header [user]="user" (exitClick)="onExit()"></app-chat-header>
   </nz-header>
 
   <nz-layout>
+
     <nz-sider
       nzCollapsible="false"
       nzWidth="256px"
@@ -25,6 +24,7 @@
     <nz-content>
       <app-chat-messages [messages]="messages"></app-chat-messages>
     </nz-content>
+
   </nz-layout>
 
   <nz-footer>
