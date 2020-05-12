@@ -1,5 +1,35 @@
 <nz-layout class="chat-layout">
-  <nz-sider
+
+  <nz-header>
+    <div class="chat-header">
+      <div nz-row nzJustify="left">
+        <div nz-col nzSpan="8">
+          <div class="logo">
+            <img src="assets/img/logo.png" alt="logo" />
+            <span>WS Chat</span>
+          </div>
+        </div>
+        <div nz-col nzSpan="8" style="text-align: center;">
+          <h2 style="color: #fff">{{ user.nickname }}</h2>
+        </div>
+        <div
+          nz-col
+          nzSpan="8"
+          style="text-align: right; padding-right: 10px;"
+        >
+          <button nz-button nzType="primary" nzDanger (click)="onExit()">
+            <i nz-icon nzType="logout"></i>
+            Exit
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </nz-header>
+
+  <nz-layout>
+
+    <nz-sider
     class="menu-sidebar"
     nzCollapsible="false"
     nzWidth="256px"
@@ -7,17 +37,21 @@
     [(nzCollapsed)]="isCollapsed"
     [nzTrigger]="null"
   >
-    <div class="sidebar-logo">
+    <div class="sidebar-collapse">
       <span (click)="isCollapsed = !isCollapsed">
-        <img src="assets/img/logo.png" alt="logo" />
-        <h1>WS Chat</h1>
+        <i
+              class="trigger"
+              nz-icon
+              [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
       </span>
+      <h1 [ngStyle]="isCollapsed ? {'display': 'none'} : {'display': 'inline-block'}">Chat Users</h1>
     </div>
 
     <ul nz-menu [nzSelectable]="false" nzTheme="dark" nzMode="inline">
-      <li nz-menu-item class="menu-title">
-        <i nz-icon nzType="team"></i>
-        <span>Chat Users</span>
+      <li *ngIf="users.length === 0" nz-menu-item >
+        <i nz-icon nzType="warning"></i>
+        <span>You are alone for now!!!</span>
       </li>
       <li *ngFor="let user of users" nz-menu-item>
         <i nz-icon nzType="user"></i>
@@ -25,91 +59,66 @@
       </li>
     </ul>
   </nz-sider>
-  <nz-layout>
-    <nz-header>
-      <div class="chat-header">
-        <div nz-row nzJustify="left">
-          <div nz-col nzSpan="8">
-            <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-              <i
-                class="trigger"
-                nz-icon
-                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-              ></i>
-            </span>
-          </div>
-          <div nz-col nzSpan="8" style="text-align: center;">
-            <h3>{{ user.nickname }}</h3>
-          </div>
-          <div
-            nz-col
-            nzSpan="8"
-            style="text-align: right; padding-right: 10px;"
-          >
-            <button nz-button nzType="default" nzDanger (click)="onExit()">
-              <i nz-icon nzType="logout"></i>
-              Exit
-            </button>
-          </div>
-        </div>
-      </div>
-    </nz-header>
 
     <nz-content>
       <app-chat-messages [messages]="messages"></app-chat-messages>
     </nz-content>
 
-    <nz-footer>
-      <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
-        <nz-form-item>
-          <!-- <nz-form-label [nzSm]="24" nzJustify="start" nzFor="message" ali>Message</nz-form-label> -->
-          <nz-form-control
-            [nzSm]="24"
-            [nzValidateStatus]="validateForm.controls['message']"
-            nzErrorTip="Please input the message!"
-          >
-            <nz-input-group [nzAddOnAfter]="addOnAfterTemplate">
-              <ng-template #addOnAfterTemplate class="user-select">
-                To:
-                <nz-select
-                  formControlName="targetUserId"
-                  class="user-select"
-                  nzShowSearch
-                  nzAllowClear
-                >
-                  <ng-container *ngFor="let user of users">
-                    <nz-option
-                      [nzValue]="user.id"
-                      [nzLabel]="user.nickname"
-                    ></nz-option>
-                  </ng-container>
-                </nz-select>
-              </ng-template>
-              <input
-                placeholder="input your message here"
-                (keydown.enter)="onPressEnter($event)"
-                formControlName="message"
-                nz-input
-              />
-            </nz-input-group>
-          </nz-form-control>
-          <button
-            type="button"
-            nz-button
-            nzType="primary"
-            (click)="submitForm()"
-          >
-            Submit
-          </button>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-control [nzSm]="16">
-            <label nz-checkbox formControlName="isPrivate">
-              <span>Is Private?</span>
-            </label>
-          </nz-form-control>
-        </nz-form-item>
-      </form>
-    </nz-footer>
+
   </nz-layout>
+
+  <nz-footer>
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+      <nz-form-item style="margin-bottom: 10px;">
+        <nz-form-control
+          [nzSm]="24"
+          [nzValidateStatus]="validateForm.controls['message']"
+
+        >
+        <nz-input-group  nzSearch [nzAddOnAfter]="suffixButton">
+            <input
+              placeholder="input your message here"
+              (keydown.enter)="onPressEnter($event)"
+              formControlName="message"
+              nz-input
+              type="text"
+              maxlength="200"
+            />
+            <ng-template #suffixButton>
+              <button nz-button nzType="primary" nzSearch >Send</button>
+            </ng-template>
+        </nz-input-group>
+        </nz-form-control>
+
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control [nzSm]="24">
+
+
+          <div nz-row>
+            <div nz-col [nzSpan]="24">
+              <label nz-checkbox formControlName="isPrivate" style="vertical-align: -webkit-baseline-middle; width: 30%;">
+                <span>Is Private?</span>
+              </label>
+              <nz-select
+                    formControlName="targetUserId"
+                    class="user-select"
+                    nzShowSearch
+                    nzAllowClear
+                    nzPlaceHolder="Select a user."
+                  >
+                    <ng-container *ngFor="let user of users">
+                      <nz-option
+                        [nzValue]="user.id"
+                        [nzLabel]="user.nickname"
+                      ></nz-option>
+                    </ng-container>
+                  </nz-select>
+              </div>
+            </div>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-footer>
+
 </nz-layout>

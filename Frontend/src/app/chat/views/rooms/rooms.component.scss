@@ -4,6 +4,7 @@ body {
 
 .logo {
   float: left;
+  min-width: 120px;
 
   img {
     margin-top: 10px;
@@ -20,7 +21,13 @@ body {
 
 nz-content {
   padding: 0 50px;
+  margin-top: 64px;
+}
 
+nz-header {
+  padding: 0 10px;
+  position: fixed;
+  width: 100%;
 }
 
 nz-layout {
