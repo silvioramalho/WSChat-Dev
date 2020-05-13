@@ -48,7 +48,7 @@ namespace WSChat.Backend.API
 
             app.UseWebSockets(new WebSocketOptions
             {
-                KeepAliveInterval = TimeSpan.FromSeconds(120),
+                KeepAliveInterval = TimeSpan.FromSeconds(50),
             });
 
             app.MapSockets("/ws", serviceProvider.GetService<ChatHandler>());

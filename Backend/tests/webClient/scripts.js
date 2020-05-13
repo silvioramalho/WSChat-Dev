@@ -67,7 +67,8 @@ var currentIdConnection = '';
  * Socket Connection
  ********************************************/
 
-var uri = 'wss://localhost:5001/ws';
+//var uri = 'wss://wschat-backend.herokuapp.com/ws';
+var uri = 'ws://localhost:5000/ws';
 var socket;
 
 var connectButton = document.getElementById('connectButton');
@@ -100,7 +101,7 @@ function connect() {
     console.log('Connection established');
   };
   socket.onclose = function (e) {
-    console.log('Connection closed');
+    console.log('Connection closed', formatDate(getDate()));
     updateSocketStatus('Off Line');
   };
 
