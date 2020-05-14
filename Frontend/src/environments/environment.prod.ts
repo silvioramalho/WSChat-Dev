@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  webSocketServer: 'wss://localhost:5001/ws'
+  webSocketServer: 'wss://wschat-backend.herokuapp.com/ws'
 };
