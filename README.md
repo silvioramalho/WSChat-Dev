@@ -2,6 +2,8 @@
 
 Websocket Chat: C# .net core + Angular 
 
+DEMO: https://wschat-backend.herokuapp.com
+
 ## Clone repository:
 
 ```
@@ -22,7 +24,7 @@ git clone git@github.com:silvioramalho/WSChat-Dev.git
 
 > dotnet run --project src/WSChat.Backend.API/WSChat.Backend.API.csproj
 
-`Note: The websocket server will be available on => wss:localhost:5001/ws`
+`Note: The websocket server will be available on => ws:localhost:5000/ws`
 
 ## Tests
 
@@ -34,6 +36,15 @@ git clone git@github.com:silvioramalho/WSChat-Dev.git
 
     Open in Google Chrome the file: `tests/webClient/index.html`
 
+## Backend on Docker Container
+
+### Build
+docker build -t wschat-backend-img .
+
+### Run on por 5000
+docker run -it --rm -p 5000:80 wschat-backend-img
+
+### [See more info about Backend on this link](Backend/README.md)
 
 ## Frontend
 
@@ -56,4 +67,12 @@ Simple websocket client for chat.
 ### [See more info about Frontend on this link](Frontend/README.md)
 
 
+## Docker Container
 
+The Dockerfile found in the root directory joins the frontend and the backend in a single container.
+
+To generate it, you need to build the frontend app before running the command below:
+
+> docker build -t `<name-docker-image>`  .
+
+`Note: The Dockerfile inside the Backend directory generates a container with Backend only.` [more info](Backend/README.md)

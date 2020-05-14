@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -62,13 +63,20 @@ namespace WSChat.Backend.API
                 endpoints.MapControllers();
             });
 
-            app.UseEndpoints(endpoints =>
+            app.Use(async (context, next) =>
             {
-                endpoints.MapGet("/", async context =>
+                await next();
+                if (context.Response.StatusCode == 404 &&
+                    !Path.HasExtension(context.Request.Path.Value) &&
+                    !context.Request.Path.Value.StartsWith("/ws"))
                 {
-                    await context.Response.WriteAsync("This server is online!!");
-                });
+                    context.Request.Path = "/index.html";
+                    await next();
+                }
             });
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
         }
     }
 }
