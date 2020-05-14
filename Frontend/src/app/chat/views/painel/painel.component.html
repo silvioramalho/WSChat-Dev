@@ -1,124 +1,38 @@
 <nz-layout class="chat-layout">
 
   <nz-header>
-    <div class="chat-header">
-      <div nz-row nzJustify="left">
-        <div nz-col nzSpan="8">
-          <div class="logo">
-            <img src="assets/img/logo.png" alt="logo" />
-            <span>WS Chat</span>
-          </div>
-        </div>
-        <div nz-col nzSpan="8" style="text-align: center;">
-          <h2 style="color: #fff">{{ user.nickname }}</h2>
-        </div>
-        <div
-          nz-col
-          nzSpan="8"
-          style="text-align: right; padding-right: 10px;"
-        >
-          <button nz-button nzType="primary" nzDanger (click)="onExit()">
-            <i nz-icon nzType="logout"></i>
-            Exit
-          </button>
-        </div>
-      </div>
-    </div>
-
+    <app-chat-header [user]="user" (exitClick)="onExit()"></app-chat-header>
   </nz-header>
 
   <nz-layout>
 
     <nz-sider
-    class="menu-sidebar"
-    nzCollapsible="false"
-    nzWidth="256px"
-    nzBreakpoint="md"
-    [(nzCollapsed)]="isCollapsed"
-    [nzTrigger]="null"
-  >
-    <div class="sidebar-collapse">
-      <span (click)="isCollapsed = !isCollapsed">
-        <i
-              class="trigger"
-              nz-icon
-              [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            ></i>
-      </span>
-      <h1 [ngStyle]="isCollapsed ? {'display': 'none'} : {'display': 'inline-block'}">Chat Users</h1>
-    </div>
-
-    <ul nz-menu [nzSelectable]="false" nzTheme="dark" nzMode="inline">
-      <li *ngIf="users.length === 0" nz-menu-item >
-        <i nz-icon nzType="warning"></i>
-        <span>You are alone for now!!!</span>
-      </li>
-      <li *ngFor="let user of users" nz-menu-item>
-        <i nz-icon nzType="user"></i>
-        <span (click)="selectUser(user)">{{ user.nickname }}</span>
-      </li>
-    </ul>
-  </nz-sider>
+      nzCollapsible="false"
+      nzWidth="256px"
+      nzBreakpoint="md"
+      [(nzCollapsed)]="isCollapsed"
+      [nzTrigger]="null"
+    >
+      <app-user-list
+        [users]="users"
+        [isCollapsed]="isCollapsed"
+        (selectValue)="onSelectUser($event)"
+        (menuCollapse)="onCollapseMenu($event)"
+      ></app-user-list>
+    </nz-sider>
 
     <nz-content>
       <app-chat-messages [messages]="messages"></app-chat-messages>
     </nz-content>
 
-
   </nz-layout>
 
   <nz-footer>
-    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
-      <nz-form-item style="margin-bottom: 10px;">
-        <nz-form-control
-          [nzSm]="24"
-          [nzValidateStatus]="validateForm.controls['message']"
-
-        >
-        <nz-input-group  nzSearch [nzAddOnAfter]="suffixButton">
-            <input
-              placeholder="input your message here"
-              (keydown.enter)="onPressEnter($event)"
-              formControlName="message"
-              nz-input
-              type="text"
-              maxlength="200"
-            />
-            <ng-template #suffixButton>
-              <button nz-button nzType="primary" nzSearch >Send</button>
-            </ng-template>
-        </nz-input-group>
-        </nz-form-control>
-
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control [nzSm]="24">
-
-
-          <div nz-row>
-            <div nz-col [nzSpan]="24">
-              <label nz-checkbox formControlName="isPrivate" style="vertical-align: -webkit-baseline-middle; width: 30%;">
-                <span>Is Private?</span>
-              </label>
-              <nz-select
-                    formControlName="targetUserId"
-                    class="user-select"
-                    nzShowSearch
-                    nzAllowClear
-                    nzPlaceHolder="Select a user."
-                  >
-                    <ng-container *ngFor="let user of users">
-                      <nz-option
-                        [nzValue]="user.id"
-                        [nzLabel]="user.nickname"
-                      ></nz-option>
-                    </ng-container>
-                  </nz-select>
-              </div>
-            </div>
-        </nz-form-control>
-      </nz-form-item>
-    </form>
+    <app-send-message
+      [users]="users"
+      [reset$]="reset$"
+      [targetUser$]="targetUser$"
+      (sendMessage)="onSendMessage($event)"
+    ></app-send-message>
   </nz-footer>
-
 </nz-layout>

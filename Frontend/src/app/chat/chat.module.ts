@@ -10,6 +10,8 @@ import { RoomCardComponent } from './views/components/room-card/room-card.compon
 import { UserListComponent } from './views/components/user-list/user-list.component';
 import { ChatMessagesComponent } from './views/components/chat-messages/chat-messages.component';
 import { RoomAddComponent } from './views/components/room-add/room-add.component';
+import { SendMessageComponent } from './views/components/send-message/send-message.component';
+import { ChatHeaderComponent } from './views/components/chat-header/chat-header.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { RoomAddComponent } from './views/components/room-add/room-add.component
     UserListComponent,
     ChatMessagesComponent,
     RoomAddComponent,
+    SendMessageComponent,
+    ChatHeaderComponent,
   ],
   entryComponents: [RoomCardComponent, ChatMessagesComponent, RoomAddComponent],
   imports: [CommonModule, SharedModule, ChatRoutingModule],

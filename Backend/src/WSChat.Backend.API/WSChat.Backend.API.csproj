@@ -2,12 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
 
 
   <ItemGroup>
     <Folder Include="Handlers\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WSChat.Backend.Lib.ChatWebSocket\WSChat.Backend.Lib.ChatWebSocket.csproj">
@@ -22,5 +24,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
   </ItemGroup>
 </Project>

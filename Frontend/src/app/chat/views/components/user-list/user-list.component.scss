@@ -1,0 +1,50 @@
+.left-sidebar {
+  position: relative;
+  z-index: 10;
+  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+  height: 95%;
+  overflow: auto;
+
+  .anticon-menu-unfold {
+    padding-left: 10px;
+    transition: all 0.15s;
+
+    .sidebar-collapse h1 {
+      display: none;
+    }
+  }
+
+  .anticon-menu-fold {
+    transition: all 0.15s;
+  }
+
+  ul {
+    margin-top: 64px;
+  }
+}
+
+.sidebar-collapse {
+  position: fixed;
+  height: 64px;
+  padding-left: 24px;
+  line-height: 64px;
+  background-color: #001529;
+  transition: all 0.3s;
+  color: #fff;
+  z-index: 100;
+}
+
+.sidebar-collapse h1 {
+  display: inline-block;
+  margin: 0 0 0 20px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  background-color: #001529;
+  font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+  vertical-align: middle;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}

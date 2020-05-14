@@ -1,6 +1,10 @@
 nz-card {
   width: 200px;
   margin-top: 16px;
+
+  nz-card-meta {
+    text-align: center;
+  }
 }
 
 .ant-card-body {
