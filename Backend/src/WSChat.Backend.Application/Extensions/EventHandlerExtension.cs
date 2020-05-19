@@ -34,6 +34,9 @@ namespace WSChat.Backend.Application.Extensions
                 case EventEnum.GoodbyeMessage:
                     objMessage.MessageText = $"{objMessage.User?.Nickname} left the room.";
                     break;
+                case EventEnum.UpdateUsersRooms:
+                    objMessage.MessageText = $"Number of users per rooms was changed.";
+                    break;
                 default:
                     break;
             }

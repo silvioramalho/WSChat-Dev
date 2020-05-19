@@ -10,5 +10,6 @@ export enum EventEnum {
   WelcomeMessage = 9,
   GoodbyeMessage = 10,
   SocketDisconnect = 11,
+  UpdateUsersRooms = 12,
   Error = 500
 }
