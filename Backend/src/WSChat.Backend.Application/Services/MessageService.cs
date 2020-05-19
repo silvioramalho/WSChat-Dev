@@ -74,6 +74,7 @@ namespace WSChat.Backend.Application.Services
                 case EventEnum.WelcomeMessage:
                 case EventEnum.GoodbyeMessage:
                 case EventEnum.SocketDisconnect:
+                case EventEnum.UpdateUsersRooms:
                 case EventEnum.Error:
                 default:
                     break;
@@ -112,6 +113,10 @@ namespace WSChat.Backend.Application.Services
             if (message.Event != EventEnum.Error)
             {
                 Message newMessage = message.GenerateEventMessage(EventEnum.UpdateUserList);
+                result.Add(newMessage.MessageToPayload(userId));
+
+                newMessage = message.GenerateEventMessage(EventEnum.UpdateUsersRooms);
+                newMessage.AvailableRooms = GetAllRooms();
                 result.Add(newMessage.MessageToPayload(userId));
             }
             
@@ -159,6 +164,10 @@ namespace WSChat.Backend.Application.Services
             {
                 Message newMessage = message.GenerateEventMessage(EventEnum.UpdateUserList);
                 newMessage = AddRoomInMessage(roomId, newMessage);
+                result.Add(newMessage.MessageToPayload(userId));
+
+                newMessage = message.GenerateEventMessage(EventEnum.UpdateUsersRooms);
+                newMessage.AvailableRooms = GetAllRooms();
                 result.Add(newMessage.MessageToPayload(userId));
             }
 
