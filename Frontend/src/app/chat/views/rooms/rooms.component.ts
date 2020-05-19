@@ -59,6 +59,8 @@ export class RoomsComponent implements OnInit, OnDestroy {
       this.router.navigate(['chat', 'painel']);
     } else if (msg && msg.event === EventEnum.UpdateRoomList && msg.availableRooms) {
       this.rooms = msg.availableRooms;
+    } else if (msg && msg.event === EventEnum.UpdateUsersRooms && msg.availableRooms) {
+      this.rooms = msg.availableRooms;
     }
   }
 

@@ -59,6 +59,12 @@ export class ChatComponent implements OnInit, OnDestroy {
           this.dataService.setRooms(msg.availableRooms);
         }
         break;
+      case EventEnum.UpdateRoomList:
+        this.messageService.presentToast('info', msg.messageText);
+        if (msg.availableRooms) {
+          this.dataService.setRooms(msg.availableRooms);
+        }
+        break;
       default:
         break;
     }
