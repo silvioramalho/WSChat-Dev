@@ -113,6 +113,9 @@ namespace WSChat.Backend.API.Handlers
                     break;
                 case EventEnum.SocketDisconnect:
                     break;
+                case EventEnum.UpdateUsersRooms:
+                    await SendMessageToAllOutsideRoom(payload);
+                    break;
                 case EventEnum.Error:
                     await SendMessage(payload.UserId, payload.Message);
                     break;
