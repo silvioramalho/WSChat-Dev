@@ -41,7 +41,7 @@ git clone git@github.com:silvioramalho/WSChat-Dev.git
 ### Build
 docker build -t wschat-backend-img .
 
-### Run on por 5000
+### Run on port 5000
 docker run -it --rm -p 5000:80 wschat-backend-img
 
 ### [See more info about Backend on this link](Backend/README.md)
